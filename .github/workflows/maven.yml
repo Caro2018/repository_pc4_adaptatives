@@ -34,3 +34,15 @@ jobs:
         dockerfile: Dockerfile
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Test Build
+      run: mvn clean install
+    - name: Build & push Docker image Test Stage
+      uses: mr-smithers-excellent/docker-build-push@v5
+      with:
+        image: valvr/pc4_stage_test
+        tags: latest
+        registry: docker.io
+        dockerfile: Dockerfile
+        username: ${{ secrets.DOCKER_USERNAME_TEST }}
+        password: ${{ secrets.DOCKER_PASSWORD_TEST }}
